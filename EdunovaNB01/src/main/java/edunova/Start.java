@@ -6,7 +6,7 @@ package edunova;
 
 /**
  *
- * @author Lord Pupcent
+ * @author Admin
  */
 public class Start {
     public static void main(String[] args) {
