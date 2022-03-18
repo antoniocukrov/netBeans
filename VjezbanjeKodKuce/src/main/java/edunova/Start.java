@@ -36,7 +36,7 @@ import org.hibernate.Session;
  */
 public class Start {
    
-    private Session session;
+private Session session;
     
    public Start() {
        this.session = HibernateUtil.getSession();
