@@ -4,19 +4,63 @@
  */
 package SellCount.view;
 
+import SellCount.util.SellCountUtil;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  *
  * @author Lord Pupcent
  */
 public class Izbornik extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Izbornik
-     */
+    private SimpleDateFormat df;
+    
     public Izbornik() {
         initComponents();
+        postavke();
     }
 
+    private void postavke(){
+        setTitle(SellCountUtil.NAZIV_APP);
+        df = new SimpleDateFormat("dd.MMMM.yyy. HH:mm:ss");
+        Vrijeme v=new Vrijeme();
+        v.start();
+        blizuNule();
+        
+        
+    }
+    
+    private void blizuNule(){
+        
+        String prvi ="Josip";
+        String drugi    ="Josip";
+        String treci    ="Josip";
+        String cetvrti  ="Josip";
+        String peti ="Josip";
+        
+        
+        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+            
+            String[] strings = { prvi,drugi,treci,cetvrti,peti };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+});
+    }
+    
+    private class Vrijeme extends Thread{
+        @Override
+        public void run() {
+            lVrijeme.setText(df.format(new Date()));
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                
+               
+            }
+            run();
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,22 +70,127 @@ public class Izbornik extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jToolBar1 = new javax.swing.JToolBar();
+        lVrijeme = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jList2 = new javax.swing.JList<>();
+        lTop6 = new javax.swing.JLabel();
+        lMin = new javax.swing.JLabel();
+        lMax = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        mDatoteka = new javax.swing.JMenu();
+        mSkladiste = new javax.swing.JMenu();
+        jSkladiste = new javax.swing.JMenuItem();
+        jPopis = new javax.swing.JMenuItem();
+        mPrimka = new javax.swing.JMenu();
+        jZaprimi = new javax.swing.JMenuItem();
+        jDokumenti = new javax.swing.JMenuItem();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jToolBar1.setRollover(true);
+
+        lVrijeme.setText("Time");
+        jToolBar1.add(lVrijeme);
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jList1);
+
+        jScrollPane2.setViewportView(jList2);
+
+        lMin.setText("Min");
+
+        lMax.setText("Max");
+
+        mDatoteka.setText("Datoteka");
+        jMenuBar1.add(mDatoteka);
+
+        mSkladiste.setText("Skladište");
+
+        jSkladiste.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, 0));
+        jSkladiste.setText("Skladište");
+        mSkladiste.add(jSkladiste);
+
+        jPopis.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, 0));
+        jPopis.setText("Popis zaliha");
+        mSkladiste.add(jPopis);
+
+        jMenuBar1.add(mSkladiste);
+
+        mPrimka.setText("Primka");
+
+        jZaprimi.setText("Zaprimi");
+        mPrimka.add(jZaprimi);
+
+        jDokumenti.setText("Dokumenti");
+        jDokumenti.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jDokumentiActionPerformed(evt);
+            }
+        });
+        mPrimka.add(jDokumenti);
+
+        jMenuBar1.add(mPrimka);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(234, 245, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lTop6)
+                        .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(lMin)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(lMax))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(14, 14, 14))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(249, 249, 249)
+                        .addComponent(lTop6))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lMin)
+                            .addComponent(lMax))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jDokumentiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDokumentiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jDokumentiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -49,5 +198,22 @@ public class Izbornik extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem jDokumenti;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JList<String> jList2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jPopis;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JMenuItem jSkladiste;
+    private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JMenuItem jZaprimi;
+    private javax.swing.JLabel lMax;
+    private javax.swing.JLabel lMin;
+    private javax.swing.JLabel lTop6;
+    private javax.swing.JLabel lVrijeme;
+    private javax.swing.JMenu mDatoteka;
+    private javax.swing.JMenu mPrimka;
+    private javax.swing.JMenu mSkladiste;
     // End of variables declaration//GEN-END:variables
 }
