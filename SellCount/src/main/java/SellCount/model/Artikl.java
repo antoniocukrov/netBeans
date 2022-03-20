@@ -17,8 +17,10 @@ public class Artikl extends Entitet{
     private String naziv;
     private String EANcode;
     private Double cijena;
-      
+    
+    @ManyToOne
     private JM jm;
+    @ManyToOne
     private Klasifikacija klasifikacija;
 
     public String getNaziv() {
