@@ -10,9 +10,22 @@ public class PocetniInsert {
         session.beginTransaction();
 
         Operater o = new Operater();
-        o.setUsername("Blagajnik");
+        o.setUsername("partner");
         o.setUloga("oper");
+        o.setLozinka(BCrypt.hashpw("potvrda", BCrypt.gensalt()));
+        
+        session.save(o);
+        session.getTransaction().commit();
+        }
+        public static void unosBlagajnika() {
+        Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+
+        Operater o = new Operater();
+        o.setUsername("blagajnik");
+        o.setUloga("djelatnik");
         o.setLozinka(BCrypt.hashpw("racun", BCrypt.gensalt()));
+        
         session.save(o);
         session.getTransaction().commit();
     }
