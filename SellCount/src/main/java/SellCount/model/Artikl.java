@@ -4,7 +4,9 @@
  */
 package SellCount.model;
 
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -22,6 +24,19 @@ public class Artikl extends Entitet{
     private JM jm;
     @ManyToOne
     private Klasifikacija klasifikacija;
+    
+    @ManyToMany
+    private List<Primka> primke;
+
+    public List<Primka> getPrimke() {
+        return primke;
+    }
+
+    public void setPrimke(List<Primka> primke) {
+        this.primke = primke;
+    }
+
+       
 
     public String getNaziv() {
         return naziv;

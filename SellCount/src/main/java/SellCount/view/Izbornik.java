@@ -81,6 +81,7 @@ public class Izbornik extends javax.swing.JFrame {
         lMax = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mDatoteka = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         mSkladiste = new javax.swing.JMenu();
         jSkladiste = new javax.swing.JMenuItem();
         jPopis = new javax.swing.JMenuItem();
@@ -109,6 +110,15 @@ public class Izbornik extends javax.swing.JFrame {
         lMax.setText("Max");
 
         mDatoteka.setText("Datoteka");
+
+        jMenuItem1.setText("Izlaz");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        mDatoteka.add(jMenuItem1);
+
         jMenuBar1.add(mDatoteka);
 
         mSkladiste.setText("Skladište");
@@ -192,6 +202,10 @@ public class Izbornik extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jDokumentiActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    dispose();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -202,6 +216,7 @@ public class Izbornik extends javax.swing.JFrame {
     private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jList2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jPopis;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

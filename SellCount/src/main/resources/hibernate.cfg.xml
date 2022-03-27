@@ -28,10 +28,13 @@
         <property name="hibernate.dbcp.minIdle">5</property>
         <property name="hibernate.dbcp.maxWaitMillis">-1</property>
         
-         <mapping class="SellCount.model.Artikl" />                   
+        <mapping class="SellCount.model.Artikl" />  
+        <mapping class="SellCount.model.Primka" />                 
         <mapping class="SellCount.model.JM" />
         <mapping class="SellCount.model.Klasifikacija" />
         <mapping class="SellCount.model.Operater" />
+        <mapping class="SellCount.model.Djelatnik" />
+        
         
                
         
