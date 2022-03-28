@@ -125,6 +125,11 @@ public class Izbornik extends javax.swing.JFrame {
 
         jSkladiste.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, 0));
         jSkladiste.setText("Skladište");
+        jSkladiste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jSkladisteActionPerformed(evt);
+            }
+        });
         mSkladiste.add(jSkladiste);
 
         jPopis.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, 0));
@@ -205,6 +210,10 @@ public class Izbornik extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
     dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jSkladisteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSkladisteActionPerformed
+    new Skladiste().setVisible(true);
+    }//GEN-LAST:event_jSkladisteActionPerformed
 
     /**
      * @param args the command line arguments

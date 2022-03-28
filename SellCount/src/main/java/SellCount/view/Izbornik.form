@@ -31,6 +31,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Skladi&#x161;te"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jSkladisteActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jPopis">
               <Properties>
