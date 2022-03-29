@@ -29,4 +29,9 @@ public class PocetniInsert {
         session.save(o);
         session.getTransaction().commit();
     }
+        
+        public static void unosSvega(){
+             unosOperatera();
+             unosBlagajnika();
+        }
 }

@@ -19,6 +19,7 @@ public class Artikl extends Entitet{
     private String naziv;
     private String EANcode;
     private Double cijena;
+    private Double kolicina;
     
     @ManyToOne
     private JM jm;
@@ -34,6 +35,14 @@ public class Artikl extends Entitet{
 
     public void setPrimke(List<Primka> primke) {
         this.primke = primke;
+    }
+
+    public Double getKolicina() {
+        return kolicina;
+    }
+
+    public void setKolicina(Double kolicina) {
+        this.kolicina = kolicina;
     }
 
        
