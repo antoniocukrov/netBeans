@@ -15,17 +15,18 @@ import javax.persistence.OneToMany;
  * @author Lord Pupcent
  */
 @Entity
-public class Artikl extends Entitet{
+public class Artikl extends Entitet {
+
     private String naziv;
     private String EANcode;
     private Double cijena;
     private Double kolicina;
-    
+
     @ManyToOne
     private JM jm;
     @ManyToOne
     private Klasifikacija klasifikacija;
-    
+
     @ManyToMany
     private List<Primka> primke;
 
@@ -44,8 +45,6 @@ public class Artikl extends Entitet{
     public void setKolicina(Double kolicina) {
         this.kolicina = kolicina;
     }
-
-       
 
     public String getNaziv() {
         return naziv;
@@ -86,7 +85,5 @@ public class Artikl extends Entitet{
     public void setKlasifikacija(Klasifikacija klasifikacija) {
         this.klasifikacija = klasifikacija;
     }
-    
-        
-    
+
 }
