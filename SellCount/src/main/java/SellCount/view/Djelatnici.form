@@ -141,7 +141,7 @@
     </Container>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Naziv"/>
+        <Property name="text" type="java.lang.String" value="Ime"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtIme">
@@ -151,7 +151,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Eancode"/>
+        <Property name="text" type="java.lang.String" value="Prezime"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtPrezime">

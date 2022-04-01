@@ -72,7 +72,7 @@ private ObradaDjelatnik obrada;
         });
         jScrollPane2.setViewportView(listaSkladiste);
 
-        jLabel1.setText("Naziv");
+        jLabel1.setText("Ime");
 
         txtIme.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,7 +80,7 @@ private ObradaDjelatnik obrada;
             }
         });
 
-        jLabel2.setText("Eancode");
+        jLabel2.setText("Prezime");
 
         txtPrezime.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

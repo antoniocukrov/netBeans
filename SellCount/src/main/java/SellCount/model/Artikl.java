@@ -23,7 +23,7 @@ public class Artikl extends Entitet {
     private Double kolicina;
 
     @ManyToOne
-    private JM jm;
+    private Jmjera jmjera;
     @ManyToOne
     private Klasifikacija klasifikacija;
 
@@ -70,12 +70,12 @@ public class Artikl extends Entitet {
         this.cijena = cijena;
     }
 
-    public JM getJm() {
-        return jm;
+    public Jmjera getJmjera() {
+        return jmjera;
     }
 
-    public void setJm(JM jm) {
-        this.jm = jm;
+    public void setJmjera(Jmjera jmjera) {
+        this.jmjera = jmjera;
     }
 
     public Klasifikacija getKlasifikacija() {
@@ -86,4 +86,8 @@ public class Artikl extends Entitet {
         this.klasifikacija = klasifikacija;
     }
 
-}
+    
+    }
+ 
+
+

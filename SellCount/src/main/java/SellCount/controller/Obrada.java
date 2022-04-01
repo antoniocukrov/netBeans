@@ -10,10 +10,7 @@ import SellCount.util.HibernateUtil;
 import java.util.List;
 import org.hibernate.Session;
 
-/**
- *
- * @author CP
- */
+
 public abstract class Obrada<T> {
     
     protected Session session;

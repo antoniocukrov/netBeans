@@ -1,24 +1,32 @@
 package SellCount.view;
 
 import SellCount.controller.ObradaArtikl;
+import SellCount.controller.ObradaJmjera;
+import SellCount.controller.ObradaKlasifikacija;
 import SellCount.model.Artikl;
+import SellCount.model.Jmjera;
+import SellCount.model.Klasifikacija;
 import SellCount.util.SellCountException;
 import java.awt.event.KeyEvent;
 import java.util.Collections;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 
 public class Skladiste extends javax.swing.JFrame {
         private ObradaArtikl obrada;
-        
+             
     
         public Skladiste() {
         initComponents();
         obrada = new ObradaArtikl();
         listaSkladiste.setCellRenderer(new PrikazArtikla());
         setTitle("Skladište");
+        ucitaj();
+        ucitajJmjere();
+        ucitajKlasifikaciju();
         
     }
     
@@ -33,6 +41,30 @@ public class Skladiste extends javax.swing.JFrame {
                 m.addElement(s);
             }
         listaSkladiste.setModel(m);
+        }
+        
+        private void ucitajJmjere() {
+        DefaultComboBoxModel<Jmjera> ms = new DefaultComboBoxModel<>();
+        Jmjera jm = new Jmjera();
+        jm.setSifra(Long.valueOf(0));
+        jm.setNaziv("Nije odabrano");
+        ms.addElement(jm);
+        new ObradaJmjera().read().forEach(s -> {
+            ms.addElement(s);
+        });
+        cmbJM.setModel(ms);
+    }
+            
+        public void ucitajKlasifikaciju(){
+            DefaultComboBoxModel<Klasifikacija> ks = new DefaultComboBoxModel<>();
+            Klasifikacija klas = new Klasifikacija();
+            klas.setSifra(Long.valueOf(0));
+            klas.setNaziv("Njet čozen");
+            ks.addElement(klas);
+            new ObradaKlasifikacija().read().forEach(s -> {
+                ks.addElement(s);
+            });
+            cmbKlas.setModel(ks);
         }
         
     
@@ -107,7 +139,12 @@ public class Skladiste extends javax.swing.JFrame {
 
         jLabel5.setText("Klasifikacija");
 
-        cmbJM.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Kom","Kg","L" }));
+        cmbJM.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        cmbJM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbJMActionPerformed(evt);
+            }
+        });
 
         btnTrazi.setText("Traži");
         btnTrazi.addActionListener(new java.awt.event.ActionListener() {
@@ -125,7 +162,7 @@ public class Skladiste extends javax.swing.JFrame {
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cash.png"))); // NOI18N
 
-        cmbKlas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbKlas.setToolTipText("");
 
         btnPromjeni.setText("Promjeni");
         btnPromjeni.addActionListener(new java.awt.event.ActionListener() {
@@ -164,28 +201,6 @@ public class Skladiste extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnPromjeni)
-                                        .addGap(26, 26, 26)
-                                        .addComponent(btnObrisi))
-                                    .addComponent(cmbKlas, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnKreiraj)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(btnTrazi, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtNaziv, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtKolicina, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel8))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel4)
-                                            .addComponent(cmbJM, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txtEan, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -195,7 +210,28 @@ public class Skladiste extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel6))
                                     .addComponent(jLabel5))
-                                .addGap(0, 5, Short.MAX_VALUE))))))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnPromjeni)
+                                        .addGap(26, 26, 26)
+                                        .addComponent(btnObrisi))
+                                    .addComponent(cmbKlas, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnKreiraj)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel1)
+                                    .addComponent(btnTrazi, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtKolicina, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel8))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel4)
+                                            .addComponent(cmbJM, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtNaziv, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(21, Short.MAX_VALUE))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,7 +278,7 @@ public class Skladiste extends javax.swing.JFrame {
                             .addComponent(btnObrisi)
                             .addComponent(btnPromjeni)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
@@ -277,8 +313,8 @@ public class Skladiste extends javax.swing.JFrame {
         txtEan.setText(e.getEANcode());
         txtCijena.setText(Double.toString(e.getCijena()));
         txtKolicina.setText(Double.toString(e.getKolicina()));
-        
-               
+              
+                          
     }//GEN-LAST:event_listaSkladisteValueChanged
 
     private void btnTraziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTraziActionPerformed
@@ -336,12 +372,17 @@ public class Skladiste extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnObrisiActionPerformed
 
+    private void cmbJMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbJMActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbJMActionPerformed
+
     private void preuzmiVrijednosti() {
         var e = obrada.getEntitet();
         e.setNaziv(txtNaziv.getText());
         e.setEANcode(txtEan.getText());
         e.setCijena(Double.parseDouble(txtCijena.getText()));
         e.setKolicina(Double.parseDouble(txtKolicina.getText()));
+        e.setJmjera((Jmjera) cmbJM.getSelectedItem());
        
         
         
@@ -353,8 +394,8 @@ public class Skladiste extends javax.swing.JFrame {
     private javax.swing.JButton btnObrisi;
     private javax.swing.JButton btnPromjeni;
     private javax.swing.JButton btnTrazi;
-    private javax.swing.JComboBox<String> cmbJM;
-    private javax.swing.JComboBox<String> cmbKlas;
+    private javax.swing.JComboBox<Jmjera> cmbJM;
+    private javax.swing.JComboBox<Klasifikacija> cmbKlas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
