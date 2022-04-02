@@ -99,6 +99,11 @@ public class Izbornik extends javax.swing.JFrame {
 
         jPopis.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, 0));
         jPopis.setText("Popis zaliha");
+        jPopis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPopisActionPerformed(evt);
+            }
+        });
         mSkladiste.add(jPopis);
 
         jMenuBar1.add(mSkladiste);
@@ -158,6 +163,10 @@ public class Izbornik extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         new Djelatnici().setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jPopisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPopisActionPerformed
+        new PopisZaliha().setVisible(true);
+    }//GEN-LAST:event_jPopisActionPerformed
 
     /**
      * @param args the command line arguments
