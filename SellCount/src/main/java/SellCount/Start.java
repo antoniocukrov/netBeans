@@ -5,10 +5,6 @@ import SellCount.util.HibernateUtil;
 import SellCount.util.PocetniInsert;
 import SellCount.view.SplashScreen;
 
-/**
- *
- * @author Lord Pupcent
- */
 public class Start {
     private Session session;
     

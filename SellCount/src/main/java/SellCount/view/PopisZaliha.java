@@ -11,29 +11,26 @@ import java.util.List;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
-
 public class PopisZaliha extends javax.swing.JFrame {
+
     private ObradaArtikl obradaA;
-    
+
     public PopisZaliha() {
         initComponents();
-        //ucitajTablicu();
-        obradaA = new ObradaArtikl();
-        List <Artikl> artikli = obradaA.read();
-        System.out.println(artikli);
+        ucitajTablicu();
+
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblPopis = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblPopis.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -52,7 +49,9 @@ public class PopisZaliha extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        tblPopis.setEnabled(false);
+        tblPopis.setShowGrid(true);
+        jScrollPane1.setViewportView(tblPopis);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -60,39 +59,55 @@ public class PopisZaliha extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(115, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(47, 47, 47)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblPopis;
     // End of variables declaration//GEN-END:variables
 
     private void ucitajTablicu() {
         DefaultTableModel ms = new DefaultTableModel();
-        List<Artikl> artikli = obradaA.read();
-        for (Artikl a : artikli) {
-            ms.addRow(artikli.toArray());
-        }
+        obradaA = new ObradaArtikl();
+        ms.addColumn("Naziv");
+        ms.addColumn("Cijena");
+        ms.addColumn("Količina");
+        ms.addColumn("JM");
+        ms.addColumn("Klasifikacija");
+        ms.addColumn("EANcode");
         
+       
         
-        
-        
-        jTable1.setModel(ms);
-        
+        new ObradaArtikl().read().forEach(s ->{
+            Vector vec = new Vector();
+            vec.add(s.getNaziv());
+            vec.add(s.getCijena());
+            vec.add(s.getKolicina());
+            vec.add(s.getJmjera());
+            vec.add(s.getKlasifikacija());
+            vec.add(s.getEANcode());
+            ms.addRow(vec);
+            });
+                
+        tblPopis.setModel(ms);
+        tblPopis.getColumnModel().getColumn(1).setMaxWidth(80);
+        tblPopis.getColumnModel().getColumn(0).setMaxWidth(100);
+        tblPopis.getColumnModel().getColumn(3).setMaxWidth(50);
+        tblPopis.getColumnModel().getColumn(2).setMaxWidth(100);
+        tblPopis.getColumnModel().getColumn(4).setMaxWidth(100);
     }
 }
