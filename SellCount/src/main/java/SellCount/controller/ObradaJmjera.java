@@ -13,7 +13,7 @@ public class ObradaJmjera extends Obrada<Jmjera>{
         return session.createQuery("from Jmjera a order by a.naziv").list();
     }
     
-   /* public List<Jmjera> read(String uvjet) {
+  public List<Jmjera> read(String uvjet) {
         return session.createQuery("from Jmjera p "
                 + " where concat(p.naziv) "
                 + " like :uvjet order by p.naziv")
@@ -21,7 +21,7 @@ public class ObradaJmjera extends Obrada<Jmjera>{
                 .setMaxResults(50)
                 .list();
     }
-    */
+    
     
     @Override
     protected void kontrolaCreate() throws SellCountException {

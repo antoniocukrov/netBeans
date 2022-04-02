@@ -21,6 +21,7 @@ private ObradaDjelatnik obrada;
         obrada = new ObradaDjelatnik();
         listaSkladiste.setCellRenderer(new PrikazDjelatnika());
         setTitle("Djelatnici");
+        ucitaj();
     }
     
     private void ucitaj() {

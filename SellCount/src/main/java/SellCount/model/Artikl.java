@@ -86,6 +86,10 @@ public class Artikl extends Entitet {
         this.klasifikacija = klasifikacija;
     }
 
+    @Override
+    public String toString() {
+        return naziv;
+    }
     
     }
  

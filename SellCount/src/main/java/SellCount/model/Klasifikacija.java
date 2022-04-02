@@ -24,4 +24,8 @@ public class Klasifikacija extends Entitet {
         this.naziv = naziv;
     }
     
+    @Override
+    public String toString(){
+        return naziv;
+    }
 }

@@ -59,7 +59,7 @@ public class Skladiste extends javax.swing.JFrame {
             DefaultComboBoxModel<Klasifikacija> ks = new DefaultComboBoxModel<>();
             Klasifikacija klas = new Klasifikacija();
             klas.setSifra(Long.valueOf(0));
-            klas.setNaziv("Njet čozen");
+            klas.setNaziv("Nije odabrano");
             ks.addElement(klas);
             new ObradaKlasifikacija().read().forEach(s -> {
                 ks.addElement(s);
@@ -313,6 +313,18 @@ public class Skladiste extends javax.swing.JFrame {
         txtEan.setText(e.getEANcode());
         txtCijena.setText(Double.toString(e.getCijena()));
         txtKolicina.setText(Double.toString(e.getKolicina()));
+       
+        if (e.getJmjera()==null) {
+        cmbJM.setSelectedIndex(0);
+        } else {
+            cmbJM.setSelectedItem(e.getJmjera());
+            }
+        
+        if (e.getKlasifikacija()==null){
+            cmbKlas.setSelectedIndex(0);
+        } else {
+            cmbKlas.setSelectedItem(e.getKlasifikacija());
+        }
               
                           
     }//GEN-LAST:event_listaSkladisteValueChanged
@@ -383,6 +395,7 @@ public class Skladiste extends javax.swing.JFrame {
         e.setCijena(Double.parseDouble(txtCijena.getText()));
         e.setKolicina(Double.parseDouble(txtKolicina.getText()));
         e.setJmjera((Jmjera) cmbJM.getSelectedItem());
+        e.setKlasifikacija((Klasifikacija)cmbKlas.getSelectedItem());
        
         
         
