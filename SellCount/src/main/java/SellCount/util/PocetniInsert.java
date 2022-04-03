@@ -105,7 +105,7 @@ public class PocetniInsert {
         j.setNaziv("KOM");
         session.save(j);
         
-        for (int i = 0; i<20;i++){
+        for (int i = 0; i<14;i++){
         artikl = new Artikl();
         artikl.setNaziv(faker.beer().name());
         double x=(int)(Math.random()*10)+10;
@@ -116,6 +116,27 @@ public class PocetniInsert {
         artikl.setKlasifikacija(k);
         session.save(artikl);
         }
+        
+        k=new Klasifikacija();
+        k.setNaziv("Žestoka pića");
+        session.save(k);
+        
+        String str,cap;
+        for (int i = 0; i<6;i++){
+        artikl = new Artikl();
+        str = faker.animal().name() + " Whisky";
+        cap = str.substring(0, 1).toUpperCase() + str.substring(1);
+        artikl.setNaziv(cap);
+        double x=(int)(Math.random()*100)+100;
+        artikl.setCijena(x+0.99);
+        artikl.setEANcode("385" + faker.number().digits(10));
+        x=(int)(Math.random()*10)+10;
+        artikl.setKolicina(x);
+        artikl.setJmjera(j);
+        artikl.setKlasifikacija(k);
+        session.save(artikl);
+        } 
+        
       
         session.getTransaction().commit();
 

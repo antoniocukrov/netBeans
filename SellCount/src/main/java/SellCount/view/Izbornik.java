@@ -1,21 +1,58 @@
 package SellCount.view;
 
+import SellCount.controller.ObradaArtikl;
 import SellCount.model.Artikl;
 import SellCount.util.SellCountUtil;
+import java.awt.BorderLayout;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import javax.swing.DefaultListModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 
 public class Izbornik extends javax.swing.JFrame {
 
     private SimpleDateFormat df;
+    ObradaArtikl obrada;
 
     public Izbornik() {
         initComponents();
         postavke();
+        nacrtajGraf();        
+            }
+    
+    private void nacrtajGraf(){
+        List<Artikl> artikli = new ObradaArtikl().read();
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        
+        new ObradaArtikl().read().forEach(s ->{
+           if(s.getKlasifikacija().getNaziv().matches("Gorivo")){
+            dataset.setValue(s.getKolicina(), "Litara", s.getNaziv());
+           }
+        });
+        
+       
+        JFreeChart jFreeChart = ChartFactory.createBarChart(
+                "Razina goriva",
+        "",
+        "Litara",
+        dataset,
+        PlotOrientation.VERTICAL,
+        false, true, false); 
+        
+        ChartPanel chartPanel = new ChartPanel(jFreeChart);
+        
+        pnlGraf.setLayout(new BorderLayout());
+        pnlGraf.add(chartPanel, BorderLayout.CENTER);
+        pnlGraf.validate();
+        
+        
     }
-
     private void postavke() {
         setTitle(SellCountUtil.NAZIV_APP);
         df = new SimpleDateFormat("dd.MMMM.yyy. HH:mm:ss");
@@ -44,6 +81,7 @@ public class Izbornik extends javax.swing.JFrame {
         jToolBar1 = new javax.swing.JToolBar();
         lVrijeme = new javax.swing.JLabel();
         lTop6 = new javax.swing.JLabel();
+        pnlGraf = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mDatoteka = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -61,6 +99,20 @@ public class Izbornik extends javax.swing.JFrame {
 
         lVrijeme.setText("Time");
         jToolBar1.add(lVrijeme);
+
+        pnlGraf.setMaximumSize(new java.awt.Dimension(400, 400));
+        pnlGraf.setPreferredSize(new java.awt.Dimension(300, 300));
+
+        javax.swing.GroupLayout pnlGrafLayout = new javax.swing.GroupLayout(pnlGraf);
+        pnlGraf.setLayout(pnlGrafLayout);
+        pnlGrafLayout.setHorizontalGroup(
+            pnlGrafLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        pnlGrafLayout.setVerticalGroup(
+            pnlGrafLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 259, Short.MAX_VALUE)
+        );
 
         mDatoteka.setText("Datoteka");
 
@@ -107,6 +159,11 @@ public class Izbornik extends javax.swing.JFrame {
         mPrimka.setText("Primka");
 
         jZaprimi.setText("Zaprimi");
+        jZaprimi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jZaprimiActionPerformed(evt);
+            }
+        });
         mPrimka.add(jZaprimi);
 
         jDokumenti.setText("Dokumenti");
@@ -126,17 +183,25 @@ public class Izbornik extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(234, 245, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lTop6)
-                    .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(234, 469, Short.MAX_VALUE)
+                .addComponent(lTop6)
+                .addGap(155, 155, 155))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlGraf, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(249, 249, 249)
+                .addContainerGap()
+                .addComponent(pnlGraf, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(lTop6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -164,6 +229,10 @@ public class Izbornik extends javax.swing.JFrame {
         new PopisZaliha().setVisible(true);
     }//GEN-LAST:event_jPopisActionPerformed
 
+    private void jZaprimiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jZaprimiActionPerformed
+        new ZaprimiProzor().setVisible(true);
+    }//GEN-LAST:event_jZaprimiActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -182,5 +251,6 @@ public class Izbornik extends javax.swing.JFrame {
     private javax.swing.JMenu mDatoteka;
     private javax.swing.JMenu mPrimka;
     private javax.swing.JMenu mSkladiste;
+    private javax.swing.JPanel pnlGraf;
     // End of variables declaration//GEN-END:variables
 }

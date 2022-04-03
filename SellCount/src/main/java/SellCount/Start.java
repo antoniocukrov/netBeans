@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import SellCount.util.HibernateUtil;
 import SellCount.util.PocetniInsert;
 import SellCount.view.SplashScreen;
+import com.github.javafaker.Faker;
 
 public class Start {
     private Session session;
