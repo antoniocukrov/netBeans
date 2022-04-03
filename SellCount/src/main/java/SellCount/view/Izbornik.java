@@ -37,10 +37,6 @@ public class Izbornik extends javax.swing.JFrame {
         }
     }
     
-    private void getWeather(){
-        
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

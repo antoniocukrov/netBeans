@@ -28,8 +28,7 @@ public class PrikazArtikla extends JLabel implements ListCellRenderer<Artikl>  {
             setForeground(Color.BLACK);
           }
      
-     setText((value.getSifra()==null ? "Nepoznato" : value.getSifra().equals("") ? "XXXXXXX" :  value.getSifra())
-                + "| " + (value.getNaziv()==null ? "Nepoznato" : value.getNaziv()));   
+     setText(value.getNaziv()==null ? "Nepoznato" : value.getNaziv());   
      return this;
     
     }

@@ -95,12 +95,28 @@ public class PocetniInsert {
         artikl.setKolicina(3853.32);
         artikl.setJmjera(j);
         artikl.setKlasifikacija(k);
-        
-        
-        
-        
-        
         session.save(artikl);
+        
+        k=new Klasifikacija();
+        k.setNaziv("Pivo");
+        session.save(k);
+        
+        j= new Jmjera();
+        j.setNaziv("KOM");
+        session.save(j);
+        
+        for (int i = 0; i<20;i++){
+        artikl = new Artikl();
+        artikl.setNaziv(faker.beer().name());
+        double x=(int)(Math.random()*10)+10;
+        artikl.setCijena(x+0.99);
+        artikl.setEANcode("385" + faker.number().digits(10));
+        artikl.setKolicina(x+x);
+        artikl.setJmjera(j);
+        artikl.setKlasifikacija(k);
+        session.save(artikl);
+        }
+      
         session.getTransaction().commit();
 
     }

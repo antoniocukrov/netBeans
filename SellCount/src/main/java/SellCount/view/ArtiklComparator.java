@@ -27,4 +27,5 @@ public class ArtiklComparator implements Comparator<Artikl> {
         return hr.compare(o1.getNaziv(), o2.getNaziv());
     }
 
+     
 }
