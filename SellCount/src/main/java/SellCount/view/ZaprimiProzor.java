@@ -189,12 +189,13 @@ public class ZaprimiProzor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUnesiActionPerformed
 
     private void btnPotvrdiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPotvrdiActionPerformed
-        if (tblZaprimi.getRowCount()<1) {
+       /* if (tblZaprimi.getRowCount()<1) {
             JOptionPane.showMessageDialog(getRootPane(), "Prvo unesite artikl koji želite zaprimiti.");
             return;
         }
-        var e=obrada.getEntitet();
+        
         for(int i=0;i<=tblZaprimi.getRowCount();i++){
+        var e=obrada.setEntitet();
         e.setNaziv((String) GetData(tblZaprimi, i, 0));
         e.setKolicina(e.getKolicina() + ((Double) GetData(tblZaprimi, i, 1)));
             try {
@@ -203,7 +204,7 @@ public class ZaprimiProzor extends javax.swing.JFrame {
             } catch (SellCountException ex) {
                 JOptionPane.showMessageDialog(getRootPane(), ex.getPoruka());
             }
-        }
+        }*/
     }//GEN-LAST:event_btnPotvrdiActionPerformed
     
     
