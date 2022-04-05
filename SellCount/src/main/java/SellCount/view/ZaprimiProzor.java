@@ -46,15 +46,18 @@ public class ZaprimiProzor extends javax.swing.JFrame {
     private void ucitajTablicu() {
         ms = new DefaultTableModel();
         obrada = new ObradaArtikl();
+        ms.addColumn("Šifra");
         ms.addColumn("Naziv");
         ms.addColumn("Količina");
         ms.addColumn("JM");
         ms.addColumn("EANcode");
         tblZaprimi.setModel(ms);
-        tblZaprimi.getColumnModel().getColumn(2).setMaxWidth(50);
+        tblZaprimi.getColumnModel().getColumn(0).setMaxWidth(70);
+        tblZaprimi.getColumnModel().getColumn(3).setMaxWidth(50);
         DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
         rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
-        tblZaprimi.getColumnModel().getColumn(1).setCellRenderer(rightRenderer);
+        tblZaprimi.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
+        tblZaprimi.getColumnModel().getColumn(0).setCellRenderer(rightRenderer);
         }
     
     @SuppressWarnings("unchecked")
@@ -124,21 +127,25 @@ public class ZaprimiProzor extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(22, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnUnesi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUnesi, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtUvjet)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnTrazi, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnPotvrdi, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnPotvrdi)
+                        .addContainerGap())
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtUvjet, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnTrazi, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(206, 256, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,6 +184,7 @@ public class ZaprimiProzor extends javax.swing.JFrame {
 
     private void btnUnesiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnesiActionPerformed
         Vector vec=new Vector();
+        vec.add(listaSkladiste.getSelectedValue().getSifra());
         vec.add(listaSkladiste.getSelectedValue().getNaziv());
         vec.add(Double.parseDouble(JOptionPane.showInputDialog("Unesi količinu:")));
         vec.add(listaSkladiste.getSelectedValue().getJmjera());
@@ -189,22 +197,18 @@ public class ZaprimiProzor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUnesiActionPerformed
 
     private void btnPotvrdiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPotvrdiActionPerformed
-       /* if (tblZaprimi.getRowCount()<1) {
+        if (tblZaprimi.getRowCount()<1) {
             JOptionPane.showMessageDialog(getRootPane(), "Prvo unesite artikl koji želite zaprimiti.");
             return;
         }
         
-        for(int i=0;i<=tblZaprimi.getRowCount();i++){
-        var e=obrada.setEntitet();
-        e.setNaziv((String) GetData(tblZaprimi, i, 0));
-        e.setKolicina(e.getKolicina() + ((Double) GetData(tblZaprimi, i, 1)));
-            try {
-                obrada.update();
-                
-            } catch (SellCountException ex) {
-                JOptionPane.showMessageDialog(getRootPane(), ex.getPoruka());
-            }
-        }*/
+        for(int i=0;i<tblZaprimi.getModel().getRowCount();i++){
+            int sifra=Integer.parseInt(tblZaprimi.getModel().getValueAt(i, 0).toString());
+            double koliko=Double.parseDouble(tblZaprimi.getModel().getValueAt(i, 2).toString());
+            obrada.updateKolicina(koliko, sifra);
+        }
+         ucitajTablicu();
+        
     }//GEN-LAST:event_btnPotvrdiActionPerformed
     
     

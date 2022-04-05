@@ -5,14 +5,19 @@
 package SellCount.controller;
 
 import SellCount.model.Artikl;
+import SellCount.util.HibernateUtil;
 import SellCount.util.SellCountException;
 import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
  * @author Lord Pupcent
  */
 public class ObradaArtikl extends Obrada<Artikl>{
+    
+    Artikl artikl;
     
     @Override
     public List<Artikl> read(){
@@ -27,7 +32,15 @@ public class ObradaArtikl extends Obrada<Artikl>{
                 .setMaxResults(50)
                 .list();
     }
-    
+    public void updateKolicina(double hello,long ID) {
+        Session session = HibernateUtil.getSession();
+
+        Transaction tx = session.beginTransaction();
+        artikl = session.load(Artikl.class, ID);
+        artikl.setKolicina(hello + artikl.getKolicina());
+        tx.commit();
+        
+    }
     
     @Override
     protected void kontrolaCreate() throws SellCountException {
