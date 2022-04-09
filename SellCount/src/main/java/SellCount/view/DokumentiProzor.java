@@ -1,10 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package SellCount.view;
 
 import SellCount.controller.ObradaArtikl;
+import SellCount.controller.ObradaPrimka;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.Vector;
@@ -16,18 +13,32 @@ public class DokumentiProzor extends javax.swing.JFrame {
     public DokumentiProzor() {
         initComponents();
         ucitajTablicu();
-        ucitaj();
+        
     }
     
     public void ucitajTablicu(){
         ms = new DefaultTableModel();
         ms.addColumn("Šifra");
         ms.addColumn("Broj otpremnice");
+        ms.addColumn("Djelatnik");
         ms.addColumn("Dobavljač");
-        ms.addColumn("Vrijeme zaprimanja");
-        ms.addColumn("Iznos");
+        ms.addColumn("Vrijeme Zaprimanja");
+        ms.addColumn("Ukupan iznos");
         tblDokumenti.setModel(ms);
         
+        new ObradaPrimka().read().forEach(s ->{
+            Vector vec = new Vector();
+            vec.add(s.getSifra());
+            vec.add(s.getBrojOtpremnice());
+            vec.add(s.getDjelatnik());
+            vec.add(s.getDobavljac());
+            vec.add(s.getVrijemeZaprimanja());
+            vec.add(s.getUkupanIznos());
+                        
+            ms.addRow(vec);
+            });
+        
+        tblDokumenti.setModel(ms);
     }
     
     
@@ -120,10 +131,5 @@ public class DokumentiProzor extends javax.swing.JFrame {
     private javax.swing.JTable tblDokumenti;
     // End of variables declaration//GEN-END:variables
 
-    private void ucitaj() {
-        Vector vec=new Vector();
-        
-        
-        
-    }
+   
 }
