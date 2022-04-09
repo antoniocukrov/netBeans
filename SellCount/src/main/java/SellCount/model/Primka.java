@@ -15,7 +15,7 @@ public class Primka extends Entitet {
     private String dobavljac;
     private LocalDateTime vrijemeZaprimanja;
     private Double ukupanIznos;
-    
+
     @ManyToOne
     private Djelatnik djelatnik;
     
@@ -72,6 +72,9 @@ public class Primka extends Entitet {
     }
 
     
-    
+    @Override
+    public String toString() {
+        return brojOtpremnice;
+    }
     
 }

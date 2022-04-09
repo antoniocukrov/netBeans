@@ -6,10 +6,12 @@ import SellCount.controller.ObradaDjelatnik;
 import SellCount.model.Artikl;
 import SellCount.model.Primka;
 import SellCount.model.Djelatnik;
+import SellCount.util.HibernateUtil;
 import SellCount.util.SellCountException;
 import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
@@ -22,6 +24,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import org.hibernate.Session;
 
 public class ZaprimiProzor extends javax.swing.JFrame {
 
@@ -31,6 +34,7 @@ public class ZaprimiProzor extends javax.swing.JFrame {
     DefaultTableModel ms;
     private double ukupniIznos;
     private static final DecimalFormat df = new DecimalFormat("0.00");
+    private final List<Artikl> artikliP = new ArrayList<Artikl>();
 
     public ZaprimiProzor() {
         initComponents();
@@ -40,9 +44,10 @@ public class ZaprimiProzor extends javax.swing.JFrame {
         ucitaj();
         ucitajTablicu();
         ucitajDjelatnike();
+        obradaP = new ObradaPrimka();
 
     }
-    
+
     private void ucitajDjelatnike() {
         DefaultComboBoxModel<Djelatnik> Djelatnik = new DefaultComboBoxModel<>();
         Djelatnik dj = new Djelatnik();
@@ -55,7 +60,7 @@ public class ZaprimiProzor extends javax.swing.JFrame {
         });
         cmbDjelatnik.setModel(Djelatnik);
     }
-    
+
     private void ucitaj() {
         DefaultListModel<Artikl> m = new DefaultListModel<>();
         List<Artikl> entiteti;
@@ -262,56 +267,55 @@ public class ZaprimiProzor extends javax.swing.JFrame {
         vec.add(listaSkladiste.getSelectedValue().getSifra());
         vec.add(listaSkladiste.getSelectedValue().getNaziv());
         try {
-            double kolicina=Double.parseDouble(JOptionPane.showInputDialog("Unesi količinu:"));
+            double kolicina = Double.parseDouble(JOptionPane.showInputDialog("Unesi količinu:"));
             vec.add(kolicina);
-            ukupniIznos=ukupniIznos+(kolicina*listaSkladiste.getSelectedValue().getCijena());
+            ukupniIznos = ukupniIznos + (kolicina * listaSkladiste.getSelectedValue().getCijena());
             txtUkupniIznos.setText(df.format(ukupniIznos));
         } catch (Exception ex) {
             return;
-           }
+        }
         vec.add(listaSkladiste.getSelectedValue().getJmjera());
         vec.add(listaSkladiste.getSelectedValue().getEANcode());
         ms.addRow(vec);
         tblZaprimi.setModel(ms);
+        artikliP.add(listaSkladiste.getSelectedValue());
 
 
     }//GEN-LAST:event_btnUnesiActionPerformed
 
     private void btnPotvrdiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPotvrdiActionPerformed
-        List <Artikl> artikliP = null;
         if (tblZaprimi.getRowCount() < 1) {
             JOptionPane.showMessageDialog(getRootPane(), "Prvo unesite artikl koji želite zaprimiti.");
             return;
         }
-        if (txtOtpremnica.getText().length()<1){
-         JOptionPane.showMessageDialog(getRootPane(), "Unesite broj otpremnice");
+        if (txtOtpremnica.getText().length() < 1) {
+            JOptionPane.showMessageDialog(getRootPane(), "Unesite broj otpremnice");
         }
         for (int i = 0; i < tblZaprimi.getModel().getRowCount(); i++) {
             int sifra = Integer.parseInt(tblZaprimi.getModel().getValueAt(i, 0).toString());
             double koliko = Double.parseDouble(tblZaprimi.getModel().getValueAt(i, 2).toString());
             obrada.updateKolicina(koliko, sifra);
         }
-    
-        
-        obradaP.setEntitet(new Primka());
-        
-        var e = obradaP.getEntitet();
-        e.setBrojOtpremnice(txtOtpremnica.getText());
-        e.setDjelatnik((Djelatnik) cmbDjelatnik.getSelectedItem());
-        e.setUkupanIznos(ukupniIznos);
-        e.setVrijemeZaprimanja(LocalDateTime.now());
-        e.setArtikli(artikliP);
-        e.setDobavljac(" ");
+
         try {
+            obradaP.setEntitet(new Primka());
+
+            var e = obradaP.getEntitet();
+            e.setBrojOtpremnice(txtOtpremnica.getText());
+            e.setDjelatnik((Djelatnik) cmbDjelatnik.getSelectedItem());
+            e.setUkupanIznos(ukupniIznos);
+            e.setVrijemeZaprimanja(LocalDateTime.now());
+            e.setArtikli(artikliP);
+            e.setDobavljac(" ");
+
             obradaP.create();
         } catch (SellCountException ex) {
             JOptionPane.showMessageDialog(getRootPane(), "NEVALJA NEŠTO!");
         }
-        
-        
-        
+
+        artikliP.clear();
         ucitajTablicu();
-        ukupniIznos=0;
+        ukupniIznos = 0;
 
     }//GEN-LAST:event_btnPotvrdiActionPerformed
 

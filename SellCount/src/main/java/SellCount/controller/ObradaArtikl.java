@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package SellCount.controller;
 
 import SellCount.model.Artikl;
@@ -11,12 +7,8 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-/**
- *
- * @author Lord Pupcent
- */
+
 public class ObradaArtikl extends Obrada<Artikl>{
-    
     Artikl artikl;
     
     @Override
@@ -42,7 +34,10 @@ public class ObradaArtikl extends Obrada<Artikl>{
         artikl.setKolicina(hello + artikl.getKolicina());
         tx.commit();
         
+        
     }
+    
+    
     
     
     
@@ -60,5 +55,6 @@ public class ObradaArtikl extends Obrada<Artikl>{
     protected void kontrolaDelete() throws SellCountException {
        
     }
+
     
 }
