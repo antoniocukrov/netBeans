@@ -32,6 +32,8 @@ public class ObradaArtikl extends Obrada<Artikl>{
                 .setMaxResults(50)
                 .list();
     }
+    
+    
     public void updateKolicina(double hello,long ID) {
         Session session = HibernateUtil.getSession();
 
@@ -41,6 +43,8 @@ public class ObradaArtikl extends Obrada<Artikl>{
         tx.commit();
         
     }
+    
+    
     
     @Override
     protected void kontrolaCreate() throws SellCountException {

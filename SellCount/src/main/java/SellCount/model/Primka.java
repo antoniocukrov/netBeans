@@ -1,23 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package SellCount.model;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-/**
- *
- * @author 38595
- */
+
 @Entity
 public class Primka extends Entitet {
     
     private String brojOtpremnice;
     private String dobavljac;
+    private LocalDateTime vrijemeZaprimanja;
+    private Double ukupanIznos;
     
     @ManyToOne
     private Djelatnik djelatnik;
@@ -25,6 +22,15 @@ public class Primka extends Entitet {
     @ManyToMany (mappedBy = "primke")
     private List<Artikl> artikli;
 
+    public LocalDateTime getVrijemeZaprimanja() {
+        return vrijemeZaprimanja;
+    }
+
+    public void setVrijemeZaprimanja(LocalDateTime vrijemeZaprimanja) {
+        this.vrijemeZaprimanja = vrijemeZaprimanja;
+    }
+
+    
     public String getBrojOtpremnice() {
         return brojOtpremnice;
     }
@@ -55,6 +61,14 @@ public class Primka extends Entitet {
 
     public void setArtikli(List<Artikl> artikli) {
         this.artikli = artikli;
+    }
+
+    public Double getUkupanIznos() {
+        return ukupanIznos;
+    }
+
+    public void setUkupanIznos(Double ukupanIznos) {
+        this.ukupanIznos = ukupanIznos;
     }
 
     

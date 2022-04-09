@@ -5,6 +5,7 @@ import SellCount.model.Artikl;
 import SellCount.model.Jmjera;
 import SellCount.model.Klasifikacija;
 import SellCount.model.Operater;
+import SellCount.model.Djelatnik;
 import com.github.javafaker.Faker;
 import com.itextpdf.text.pdf.Barcode;
 import com.itextpdf.text.pdf.BarcodeEAN;
@@ -47,7 +48,14 @@ public class PocetniInsert {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
         Faker faker = new Faker();
-                
+        
+        for(int i=0;i<10;i++){
+        Djelatnik d= new Djelatnik();
+        d.setIme(faker.name().firstName());
+        d.setPrezime(faker.name().lastName());
+        session.save(d);
+        }
+        
         Jmjera j = new Jmjera();
         j.setNaziv("L");
         session.save(j);

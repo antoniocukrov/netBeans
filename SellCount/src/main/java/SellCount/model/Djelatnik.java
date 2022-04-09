@@ -23,4 +23,9 @@ public class Djelatnik extends Entitet {
         this.prezime = prezime;
     }
     
+    @Override
+    public String toString(){
+        return ime+ " " +prezime;
+    }
+    
 }
