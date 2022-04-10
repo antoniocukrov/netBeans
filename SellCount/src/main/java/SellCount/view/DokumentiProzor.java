@@ -2,9 +2,15 @@ package SellCount.view;
 
 import SellCount.controller.ObradaArtikl;
 import SellCount.controller.ObradaPrimka;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfStamper;
+import java.io.FileOutputStream;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class DokumentiProzor extends javax.swing.JFrame {
@@ -56,6 +62,7 @@ public class DokumentiProzor extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        btnPdf = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -81,6 +88,13 @@ public class DokumentiProzor extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Sortiraj");
 
+        btnPdf.setText("PDF");
+        btnPdf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPdfActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -95,7 +109,9 @@ public class DokumentiProzor extends javax.swing.JFrame {
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnPdf)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -110,7 +126,8 @@ public class DokumentiProzor extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPdf))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -120,8 +137,45 @@ public class DokumentiProzor extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPdfActionPerformed
+     try {
+		    
+           var izlaz = "D:\\"+"Otpremnice\\" + tblDokumenti.getValueAt(tblDokumenti.getSelectedRow(),1 ).toString() + ".pdf";
+                                                
+		    PdfReader pdfReader = new PdfReader("blank.pdf");	
+ 
+		    PdfStamper pdfStamper = new PdfStamper(pdfReader,
+			new FileOutputStream(izlaz));
+ 
+		    BaseFont baseFont = BaseFont.createFont(
+	                BaseFont.TIMES_ROMAN, 
+	                BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+ 
+		    int pages = pdfReader.getNumberOfPages(); 
+ 
+		    for(int i=1; i<=pages; i++) { 
+			PdfContentByte pageContentByte = pdfStamper.getOverContent(i);
+ 
+			pageContentByte.beginText();
+			pageContentByte.setFontAndSize(baseFont, 14);
+ 
+			pageContentByte.setTextMatrix(50, 740);
+ 
+			pageContentByte.showText("");
+			pageContentByte.endText();
+		    }
+ 
+		    pdfStamper.close();	
+ 
+		    System.out.println("PDF modified successfully.");
+		} catch (Exception e) {
+		         JOptionPane.showMessageDialog(getRootPane(), "Puklo bjatić!");
+		}
+    }//GEN-LAST:event_btnPdfActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnPdf;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
