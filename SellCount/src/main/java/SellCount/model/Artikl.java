@@ -27,7 +27,7 @@ public class Artikl extends Entitet {
     @ManyToOne
     private Klasifikacija klasifikacija;
 
-    @ManyToMany
+    @ManyToMany (mappedBy = "artikli")
     private List<Primka> primke;
 
     public List<Primka> getPrimke() {

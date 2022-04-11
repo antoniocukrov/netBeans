@@ -41,7 +41,7 @@ public class DokumentiProzor extends javax.swing.JFrame {
             vec.add(s.getDobavljac());
             vec.add(s.getVrijemeZaprimanja());
             vec.add(s.getUkupanIznos());
-                        
+                                    
             ms.addRow(vec);
             });
         

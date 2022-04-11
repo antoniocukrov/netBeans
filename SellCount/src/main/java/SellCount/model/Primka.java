@@ -19,7 +19,7 @@ public class Primka extends Entitet {
     @ManyToOne
     private Djelatnik djelatnik;
     
-    @ManyToMany (mappedBy = "primke")
+    @ManyToMany 
     private List<Artikl> artikli;
 
     public LocalDateTime getVrijemeZaprimanja() {
