@@ -6,6 +6,7 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
@@ -139,8 +140,8 @@ public class DokumentiProzor extends javax.swing.JFrame {
 
     private void btnPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPdfActionPerformed
      try {
-		    
-           var izlaz = "D:\\"+"Otpremnice\\" + tblDokumenti.getValueAt(tblDokumenti.getSelectedRow(),1 ).toString() + ".pdf";
+           OtpremniceDkmnt();
+           var izlaz = "C:\\"+"Otpremnice\\" + tblDokumenti.getValueAt(tblDokumenti.getSelectedRow(),1 ).toString() + ".pdf";
                                                 
 		    PdfReader pdfReader = new PdfReader("blank.pdf");	
  
@@ -159,9 +160,55 @@ public class DokumentiProzor extends javax.swing.JFrame {
 			pageContentByte.beginText();
 			pageContentByte.setFontAndSize(baseFont, 14);
  
-			pageContentByte.setTextMatrix(50, 740);
+			pageContentByte.setTextMatrix(400, 640);
  
-			pageContentByte.showText("");
+			pageContentByte.showText(
+                                tblDokumenti.getValueAt(tblDokumenti.getSelectedRow(), 1).toString()
+                                                );
+			pageContentByte.endText();
+		    }
+                    
+                    for(int i=1; i<=pages; i++) { 
+			PdfContentByte pageContentByte = pdfStamper.getOverContent(i);
+ 
+			pageContentByte.beginText();
+			pageContentByte.setFontAndSize(baseFont, 14);
+ 
+			pageContentByte.setTextMatrix(400, 615);
+ 
+			pageContentByte.showText(
+                                tblDokumenti.getValueAt(tblDokumenti.getSelectedRow(), 2).toString()
+                                                );
+			pageContentByte.endText();
+		    }
+                    
+                    String vrijemeZaprimanja=tblDokumenti.getValueAt(tblDokumenti.getSelectedRow(), 4).toString();
+                    String[] splitanoVrijeme= vrijemeZaprimanja.split("T");
+                    String datum=splitanoVrijeme[0];
+                    String satMinut=splitanoVrijeme[1];
+                    
+                    for(int i=1; i<=pages; i++) { 
+			PdfContentByte pageContentByte = pdfStamper.getOverContent(i);
+ 
+			pageContentByte.beginText();
+			pageContentByte.setFontAndSize(baseFont, 14);
+ 
+			pageContentByte.setTextMatrix(400, 590);
+ 
+			pageContentByte.showText(datum);
+			pageContentByte.endText();
+		    }
+                    for(int i=1; i<=pages; i++) { 
+			PdfContentByte pageContentByte = pdfStamper.getOverContent(i);
+ 
+			pageContentByte.beginText();
+			pageContentByte.setFontAndSize(baseFont, 14);
+ 
+			pageContentByte.setTextMatrix(400, 565);
+ 
+			pageContentByte.showText(
+                                tblDokumenti.getValueAt(tblDokumenti.getSelectedRow(), 5).toString()
+                                                );
 			pageContentByte.endText();
 		    }
  
@@ -185,5 +232,13 @@ public class DokumentiProzor extends javax.swing.JFrame {
     private javax.swing.JTable tblDokumenti;
     // End of variables declaration//GEN-END:variables
 
-   
+    private void OtpremniceDkmnt(){
+        String path = "C:\\"+"Otpremnice\\";
+        File folder = new File(path);
+        
+        if(!folder.exists()){
+            folder.mkdir();
+        }
+        
+    }
 }
